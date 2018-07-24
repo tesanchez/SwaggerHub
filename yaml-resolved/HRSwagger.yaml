@@ -1,0 +1,98 @@
+---
+swagger: "2.0"
+info:
+  description: "post and pull employees from the DB"
+  version: "0.0.1"
+  title: "HR2.0"
+host: "virtserver.swaggerhub.com"
+basePath: "/SE-Design/sampleHR123/0.0.1"
+schemes:
+- "https"
+paths:
+  /users:
+    get:
+      description: "Allows users to get employees"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+    post:
+      description: "Allows users to submit user data to the DB"
+      parameters:
+      - in: "body"
+        name: "employee"
+        description: "Creates a new employee in DB"
+        required: false
+        schema:
+          $ref: "#/definitions/employee"
+      responses:
+        200:
+          description: "resource successfully added"
+          schema:
+            $ref: "#/definitions/inline_response_200_1"
+definitions:
+  inline_response_200_1:
+    properties:
+      status:
+        type: "integer"
+        example: 200
+        description: "status code"
+      message:
+        type: "string"
+        example: "resource added successfully"
+        description: "success message"
+    example:
+      message: "resource added successfully"
+      status: 200
+  inline_response_200:
+    required:
+    - "email"
+    - "firstName"
+    - "lastName"
+    - "userUUid"
+    properties:
+      userUUid:
+        type: "string"
+        format: "uuid"
+        example: "113a3d8d-ddac-4b0f-9f16-15123512"
+        description: "ID from DB"
+      email:
+        type: "string"
+        format: "email"
+        example: "Tom.Jones@smartbear.com"
+        description: "user email from DB"
+      firstName:
+        type: "string"
+        example: "Tom"
+        description: "users first name"
+      lastName:
+        type: "string"
+        example: "Jones"
+        description: "users last name"
+    example:
+      firstName: "Tom"
+      lastName: "Jones"
+      userUUid: "113a3d8d-ddac-4b0f-9f16-15123512"
+      email: "Tom.Jones@smartbear.com"
+  employee:
+    type: "object"
+    required:
+    - "email"
+    properties:
+      userUUid:
+        type: "string"
+        format: "uuid"
+        example: "113a3d8d-ddac-4b0f-9f16-15123512"
+        description: "ID to be submitted to DB"
+      email:
+        type: "string"
+        format: "email"
+        example: "Tom.Jones@smartbear.com"
+      firstName:
+        type: "string"
+        example: "Tom"
+      lastName:
+        type: "string"
+        example: "Jones"
